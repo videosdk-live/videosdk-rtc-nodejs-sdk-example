@@ -1,56 +1,76 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const fetch = require("node-fetch");
-const cors = require("cors");
 require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const morgan = require("morgan");
+const { default: fetch } = require("node-fetch");
+const jwt = require("jsonwebtoken");
+
+const PORT = 9000;
 const app = express();
-const port = 9000;
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan("dev"));
+
+//
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+//
 app.get("/get-token", (req, res) => {
   const API_KEY = process.env.ZUJONOW_API_KEY;
   const SECRET_KEY = process.env.ZUJONOW_SECRET_KEY;
+
   const options = { expiresIn: "10m", algorithm: "HS256" };
+
   const payload = {
     apikey: API_KEY,
     permissions: ["allow_join", "allow_mod"], // also accepts "ask_join"
   };
+
   const token = jwt.sign(payload, SECRET_KEY, options);
   res.json({ token });
 });
+
+//
 app.post("/create-meeting/", (req, res) => {
   const token = req.body.token;
-  console.log("token", token);
-  const ZUJONOW_API_ENDPOINT = `${process.env.ZUJONOW_API_ENDPOINT}/api/meetings`;
+
+  const url = `${process.env.ZUJONOW_API_ENDPOINT}/api/meetings`;
+
   const options = {
     method: "POST",
-    headers: {
-      Authorization: token,
-    },
+    headers: { Authorization: token },
   };
-  fetch(ZUJONOW_API_ENDPOINT, options)
+
+  fetch(url, options)
     .then((response) => response.json())
     .then((result) => res.json(result)) // result will contain meetingId
-    .catch((error) => console.log("error", error));
+    .catch((error) => console.error("error", error));
 });
-app.get("/validate-meeting/:token", (req, res) => {
-  const token = req.params.token;
-  const ZUJONOW_API_ENDPOINT = `${process.env.ZUJONOW_API_ENDPOINT}/api/meetings`;
+
+//
+app.post("/validate-meeting/:meetingId", (req, res) => {
+  const token = req.body.token;
+  const meetingId = req.params.meetingId;
+
+  const url = `${process.env.ZUJONOW_API_ENDPOINT}/api/meetings/${meetingId}`;
+
   const options = {
     method: "POST",
-    headers: {
-      Authorization: token,
-    },
+    headers: { Authorization: token },
   };
-  fetch(ZUJONOW_API_ENDPOINT, options)
+
+  fetch(url, options)
     .then((response) => response.json())
     .then((result) => res.json(result)) // result will contain meetingId
-    .catch((error) => console.log("error", error));
+    .catch((error) => console.error("error", error));
 });
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+
+//
+app.listen(PORT, () => {
+  console.log(`API server listening at http://localhost:${PORT}`);
 });
