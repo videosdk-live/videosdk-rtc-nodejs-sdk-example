@@ -21,8 +21,8 @@ app.get("/", (req, res) => {
 
 //
 app.get("/get-token", (req, res) => {
-  const API_KEY = process.env.ZUJONOW_API_KEY;
-  const SECRET_KEY = process.env.ZUJONOW_SECRET_KEY;
+  const API_KEY = process.env.VIDEOSDK_API_KEY;
+  const SECRET_KEY = process.env.VIDEOSDK_SECRET_KEY;
 
   const options = { expiresIn: "10m", algorithm: "HS256" };
 
@@ -39,7 +39,7 @@ app.get("/get-token", (req, res) => {
 app.post("/create-meeting/", (req, res) => {
   const token = req.body.token;
 
-  const url = `${process.env.ZUJONOW_API_ENDPOINT}/api/meetings`;
+  const url = `${process.env.VIDEOSDK_API_ENDPOINT}/api/meetings`;
 
   const options = {
     method: "POST",
@@ -57,7 +57,7 @@ app.post("/validate-meeting/:meetingId", (req, res) => {
   const token = req.body.token;
   const meetingId = req.params.meetingId;
 
-  const url = `${process.env.ZUJONOW_API_ENDPOINT}/api/meetings/${meetingId}`;
+  const url = `${process.env.VIDEOSDK_API_ENDPOINT}/api/meetings/${meetingId}`;
 
   const options = {
     method: "POST",

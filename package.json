@@ -1,7 +1,7 @@
 {
-  "name": "zujonow-realtime-comm-nodejs-example",
+  "name": "videosdk-rtc-nodejs-sdk-example",
   "version": "1.0.0",
-  "description": "A simple example of ZujoNow webRTC sdk",
+  "description": "A simple example of Videosdk webRTC sdk api server",
   "main": "server.js",
   "author": "arjun-kava",
   "license": "MIT",
