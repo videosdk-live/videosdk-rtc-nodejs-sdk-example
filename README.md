@@ -10,13 +10,13 @@ Use our official _videosdk-rtc-nodejs-sdk-example_ to perform server authenticat
 1. Clone the repo
 
    ```sh
-   $ git clone https://github.com/videosdk-live/videosdk-rtc-nodejs-sdk-example
+   git clone https://github.com/videosdk-live/videosdk-rtc-nodejs-sdk-example
    ```
 
 2. Copy the `.env.example` file to `.env` file.
 
    ```sh
-   $ cp .env.example .env
+   cp .env.example .env
    ```
 
 3. Update the api key and secret values in the `.env` file with the ones generated from the developer console.
@@ -30,13 +30,13 @@ Use our official _videosdk-rtc-nodejs-sdk-example_ to perform server authenticat
 4. Install NPM packages
 
    ```sh
-   $ npm install
+   npm install
    ```
 
 5. Run the server
 
    ```sh
-   $ npm run start
+   npm run start
    ```
 
 ## Resources
