@@ -24,7 +24,7 @@ Use our official _videosdk-rtc-nodejs-sdk-example_ to perform server authenticat
    ```
    VIDEOSDK_API_KEY=''
    VIDEOSDK_SECRET_KEY=''
-   VIDEOSDK_API_ENDPOINT=https://api.zujonow.com
+   VIDEOSDK_API_ENDPOINT=https://api.videosdk.live
    ```
 
 4. Install NPM packages
